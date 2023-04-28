@@ -4,6 +4,7 @@ window.addEventListener("load", initApp);
 
 let hairdresserSelector = 0;
 let statusIsAdimin = true;
+let arr = [];
 
 function initApp() {
   // Select der ændre form baseret på frisøren
@@ -51,39 +52,59 @@ function setDOM() {
   let htmlDOM;
   document.querySelector("#forms-div").innerHTML = "";
   if (hairdresserSelector == 1) {
-    htmlDOM = `<select id="hairdresser1">
-     <option>Dreadlocks</option>
-     <option>Cornrows</option>
-     <option>Hippie hår</option>
+    htmlDOM =
+      /*html*/
+      `<select id="hairdresser">
+     <option value="dreads"> Dreadlocks</option>
+     <option value="cornrow"> Cornrows</option>
+     <option value="hippie">Hippie hår</option>
      </select>`;
   } else if (hairdresserSelector == 2) {
-    htmlDOM = `<select id="hairdresser2">
-     <option>Page hår</option>
-     <option>Krøller</option>
-     <option>Gammeldags</option>
+    htmlDOM =
+      /*html*/
+      `<select id="hairdresser">
+     <option value="page">Page hår</option>
+     <option value="krøller">Krøller</option>
+     <option value="gammel">Gammeldags</option>
      </select>`;
   } else if (hairdresserSelector == 3) {
-    htmlDOM = `<select id="hairdresser3">
-     <option>Smørhår</option>
-     <option>Noget dyrt</option>
-     <option>Spytslikkeren</option>
+    htmlDOM =
+      /*html*/
+      `<select id="hairdresser">
+     <option value="smørhår">Smørhår</option>
+     <option value="trump">Trump hår</option>
+     <option value="slikhår">Spytslikkeren</option>
      </select>`;
   } else if (hairdresserSelector == 4) {
-    htmlDOM = `<select id="hairdresser4">
-     <option>Karseklip</option>
-     <option>Military cut</option>
-     <option>Nup det hele</option>
+    htmlDOM =
+      /*html*/
+      `<select id="hairdresser">
+     <option value="karse">Karseklip</option>
+     <option value="army">Military cut</option>
+     <option value="skallet">Nup det hele</option>
      </select>`;
   }
 
   const formHTML =
     /*html*/
+
     `<form id="order-form">
+    <legend>Bestilling</legend>
    <div>${htmlDOM}</div>
-   <lable for="full-name">Navn</lable>
-   <input type="text" id="full-name" name="full-name">
-   <lable for="user-phone">Tlf. Nummer</lable>
-   <input type="text" id="user-phone" name="user-phone">
+   <lable for="oderDate">Dato</lable>
+   <input type="date" id="orderDate" name="orderDate">
+   <lable for="orderTime">Tid</lable>
+   <input type="time" id="orderTime" name="orderTime">
+   <legend>Bruger Information</legend>
+   <lable for="fullName">Navn</lable>
+   <input type="text" id="fullName" name="full-name">
+   <lable for="userPhone">Tlf. Nummer</lable>
+   <input type="text" id="userPhone" name="user-phone">
+   <lable>Email</lable>
+   <input type="email" id="userEmail" name="userEmail">
+   <input>
+   
+
    <button type="submit">Accept</button>
    </form>`;
 
@@ -92,10 +113,57 @@ function setDOM() {
     .querySelector("#forms-div")
     .insertAdjacentHTML("beforeend", formHTML);
 
-  document.querySelector("#oder-form").addEventListener("submit", createOrder);
+  document.querySelector("#order-form").addEventListener("submit", createOrder);
 }
 
 function createOrder(event) {
+  console.log("Order submitted");
   const form = event.target;
-  console.log(form);
+
+  const orderElement = {
+    frisør: hairdresserSelector,
+    behandling: form.hairdresser.value,
+    dato: form.orderDate.value,
+    tid: form.orderTime.value,
+    navn: form.fullName.value,
+    telefonNummer: form.userPhone.value,
+    email: form.userEmail.value,
+  };
+
+  console.log(orderElement);
+  console.log(arr);
+  arr.push(orderElement);
+  showOrders();
+}
+
+function showOrders() {
+  //Re-setter indholdet i orders-overview
+  // document.querySelector("#orders-overview").innerHTML = "";
+  for (const order of arr) {
+    console.log(order);
+    showOrder(order);
+  }
+}
+
+function showOrder(order) {
+  console.log("showOrder");
+  //Const med lokationen for orders-overview
+  const orderView = document.querySelector("#orders-overview");
+
+  //Giver HTML-tags til hvert orderElement.
+  const orderHTML =
+    /*html*/
+    `
+<div class="oder-item">
+<p>Den valgte frisør: ${order.frisør}</p>
+<p>Den valgte behandling: ${order.behandling}</p>
+<p>Dato: ${order.orderDato} Kl: ${order.orderTime}</p>
+<p>Navnet på kunden: ${order.navn}</p>
+<p>telefonNumber: ${order.telefonNummer}</p>
+</div>
+`;
+
+  console.log(orderHTML);
+  //Insætter elementet...
+  orderView.insertAdjacentHTML("beforeend", orderHTML);
 }
