@@ -3,11 +3,27 @@
 window.addEventListener("load", initApp);
 
 let hairdresserSelector = 0;
+let statusIsAdimin = true;
 
 function initApp() {
   document
     .querySelector("#hairdresser-selected")
     .addEventListener("change", modeSelected);
+
+  document
+    .querySelector("#admin-selector")
+    .addEventListener("click", changeAdminStatus);
+}
+
+function changeAdminStatus() {
+  if (statusIsAdimin == true) {
+    statusIsAdimin = false;
+    document.querySelector("#admin-selector").textContent = "Change to admin";
+  } else {
+    statusIsAdimin = true;
+    document.querySelector("#admin-selector").textContent =
+      "Change to customer";
+  }
 }
 
 function modeSelected() {
