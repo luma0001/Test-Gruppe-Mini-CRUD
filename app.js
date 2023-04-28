@@ -47,16 +47,46 @@ function changeOfMode(selected) {
 
 function setDOM() {
   let htmlDOM;
+  document.querySelector("#forms-div").innerHTML = "";
   if (hairdresserSelector == 1) {
-    htmlDOM = `<select id="hairdresser1">
-     <option>Hey</option>
-     <option>Jude</option>
-     </select>`;
+    htmlDOM = (
+      <select id="hairdresser1">
+        <option>Dreadlocks</option>
+        <option>Cornrows</option>
+        <option>Hippie hår</option>
+      </select>
+    );
   } else if (hairdresserSelector == 2) {
     htmlDOM = `<select id="hairdresser2">
-     <option>Yellow</option>
-     <option>Submarine</option>
+     <option>Page hår</option>
+     <option>Krøller</option>
+     <option>Gammeldags</option>
+     </select>`;
+  } else if (hairdresserSelector == 3) {
+    htmlDOM = `<select id="hairdresser3">
+     <option>Smørhår</option>
+     <option>Noget dyrt</option>
+     <option>Spytslikkeren</option>
+     </select>`;
+  } else if (hairdresserSelector == 4) {
+    htmlDOM = `<select id="hairdresser4">
+     <option>Karseklip</option>
+     <option>Military cut</option>
+     <option>Nup det hele</option>
      </select>`;
   }
-  document.querySelector("#forms-div").insertAdjacentHTML("beforeend", htmlDOM);
+
+  const formHTML =
+    /*html*/
+    `<article>
+   <div>${htmlDom}</div>
+   <lable for="full-name">Navn</lable>
+   <input type="text" id="full-name" name="full-name">
+   <lable for="user-phone">Tlf. Nummer</lable>
+   <input type="text" id="user-phone" name="user-phone">
+   </article>`;
+
+  document
+    .querySelector("#forms-div")
+    .insertAdjacentHTML("beforeend", formHTML);
 }
