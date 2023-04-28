@@ -6,10 +6,12 @@ let hairdresserSelector = 0;
 let statusIsAdimin = true;
 
 function initApp() {
+  // Select der ændre form baseret på frisøren
   document
     .querySelector("#hairdresser-selected")
     .addEventListener("change", modeSelected);
 
+  //Knap som skifter mellem administrator og bruger status
   document
     .querySelector("#admin-selector")
     .addEventListener("click", changeAdminStatus);
@@ -76,15 +78,24 @@ function setDOM() {
 
   const formHTML =
     /*html*/
-    `<article class="order-form">
+    `<form id="order-form">
    <div>${htmlDOM}</div>
    <lable for="full-name">Navn</lable>
    <input type="text" id="full-name" name="full-name">
    <lable for="user-phone">Tlf. Nummer</lable>
    <input type="text" id="user-phone" name="user-phone">
-   </article>`;
+   <button type="submit">Accept</button>
+   </form>`;
 
+  //Insætter en frisør specifik form i HTML'en
   document
     .querySelector("#forms-div")
     .insertAdjacentHTML("beforeend", formHTML);
+
+  document.querySelector("#oder-form").addEventListener("submit", createOrder);
+}
+
+function createOrder(event) {
+  const form = event.target;
+  console.log(form);
 }
