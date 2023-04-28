@@ -13,3 +13,11 @@ body {
 footer {
   background-color: lightslategray;
 }
+
+.admin > body {
+  background-color: brown;
+}
+
+.user > main {
+  background-color: aqua;
+}

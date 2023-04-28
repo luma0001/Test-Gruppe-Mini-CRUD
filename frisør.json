@@ -1,0 +1,31 @@
+{
+  "orders": {
+    "1mNVXMNbZWjKsiaTFsDw": {
+      "frisør": "Den sure saks",
+      "behandling": "Afmeddet",
+      "dato": "1999-06-12",
+      "tid": "10:21",
+      "navn": "Svende Olotta",
+      "telefonNummer": "09849838",
+      "email": "holeInOne@månen.se"
+    },
+    "5tl4jHHSRaKEB0UW9nQd": {
+      "frisør": "Den glade saks",
+      "behandling": "Afro",
+      "dato": "1904-04-12",
+      "tid": "06:06",
+      "navn": "Bjarne Bajer",
+      "telefonNummer": "37582989",
+      "email": "kagemand@hotmail.us"
+    },
+    "6RtyNxxTYIBDRODr3dwv": {
+      "frisør": "Den sure saks",
+      "behandling": "Afmeddet",
+      "dato": "2003-08-11",
+      "tid": "23.40",
+      "navn": "Karla Kadusaakommened",
+      "telefonNummer": "99999999",
+      "email": "jegErDinFar@simba.dk"
+    }
+  }
+}

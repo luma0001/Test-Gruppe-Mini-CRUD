@@ -6,6 +6,9 @@ let hairdresserSelector = 0;
 let statusIsAdimin = true;
 let arr = [];
 
+//create -elements
+//update and delete baseon on id...
+
 function initApp() {
   // Select der ændre form baseret på frisøren
   document
@@ -22,10 +25,14 @@ function changeAdminStatus() {
   if (statusIsAdimin == true) {
     statusIsAdimin = false;
     document.querySelector("#admin-selector").textContent = "Change to admin";
+    document.querySelector("main").classList.add("user");
+    document.querySelector("main").classList.remove("admin");
   } else {
     statusIsAdimin = true;
     document.querySelector("#admin-selector").textContent =
       "Change to customer";
+    document.querySelector("main").classList.add("admin");
+    document.querySelector("main").classList.remove("user");
   }
 }
 
@@ -102,7 +109,6 @@ function setDOM() {
    <input type="text" id="userPhone" name="user-phone">
    <lable>Email</lable>
    <input type="email" id="userEmail" name="userEmail">
-   <input>
    
 
    <button type="submit">Accept</button>
@@ -130,7 +136,7 @@ function createOrder(event) {
     email: form.userEmail.value,
   };
 
-  console.log(orderElement);
+  console.log(orderElement.dato);
   console.log(arr);
   arr.push(orderElement);
   showOrders();
@@ -157,9 +163,10 @@ function showOrder(order) {
 <div class="oder-item">
 <p>Den valgte frisør: ${order.frisør}</p>
 <p>Den valgte behandling: ${order.behandling}</p>
-<p>Dato: ${order.orderDato} Kl: ${order.orderTime}</p>
+<p>Dato: ${order.dato} Kl: ${order.tid}</p>
 <p>Navnet på kunden: ${order.navn}</p>
-<p>telefonNumber: ${order.telefonNummer}</p>
+<p>Kundes nummer: ${order.telefonNummer}</p>
+<p>Kundes email: ${order.email}</p>
 </div>
 `;
 
