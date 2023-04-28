@@ -4,12 +4,18 @@ window.addEventListener("load", initApp);
 
 let hairdresserSelector = 0;
 let statusIsAdimin = true;
-let arr = [];
+
+const endpoint =
+  "https://luma0001-c50c8-default-rtdb.europe-west1.firebasedatabase.app";
 
 //create -elements
 //update and delete baseon on id...
+// sort and filter funtions....
+async function initApp() {
+  const jsonFiles = await fetchOrders();
+  const listOfOrders = restructureData(jsonFiles);
+  orderDOM(listOfOrders);
 
-function initApp() {
   // Select der ændre form baseret på frisøren
   document
     .querySelector("#hairdresser-selected")
@@ -21,6 +27,7 @@ function initApp() {
     .addEventListener("click", changeAdminStatus);
 }
 
+// Changes the admin status
 function changeAdminStatus() {
   if (statusIsAdimin == true) {
     statusIsAdimin = false;
@@ -36,6 +43,7 @@ function changeAdminStatus() {
   }
 }
 
+//Swaps between the selected hairdressers
 function modeSelected() {
   const selectedMode = this.value;
   changeOfMode(selectedMode);
@@ -55,6 +63,58 @@ function changeOfMode(selected) {
   console.log(hairdresserSelector);
 }
 
+async function fetchOrders() {
+  const promise = await fetch(`${endpoint}/orders.json`);
+  const response = await promise.json();
+
+  console.log(response);
+  return response;
+}
+
+//Her loopes der på json-filen. Hvert object tages ud af hovedobjektet og puttes ind i en liste istedet.
+
+function restructureData(ordersObject) {
+  const ordersList = [];
+  //For-In looper på indexspladser eller hvad?
+  for (const order in ordersObject) {
+    const key = ordersObject[order];
+    key.id = order;
+    ordersList.push(key);
+  }
+  return ordersList;
+}
+
+function orderDOM(ordersList) {
+  if (statusIsAdimin == true) {
+    for (const orderElement of ordersList) {
+      visualizeOrderElement(orderElement);
+    }
+  }
+}
+
+function visualizeOrderElement(order) {
+  if (statusIsAdimin == true) {
+    console.log("showOrder");
+    //Const med lokationen for orders-overview
+    const orderView = document.querySelector("#orders-overview");
+
+    //Giver HTML-tags til hvert orderElement.
+    const orderHTML =
+      /*html*/
+      `
+<div class="oder-item">
+<p>Den valgte frisør: ${order.frisør}</p>
+<p>Den valgte behandling: ${order.behandling}</p>
+<p>Dato: ${order.dato} Kl: ${order.tid}</p>
+<p>Navnet på kunden: ${order.navn}</p>
+<p>Kundes nummer: ${order.telefonNummer}</p>
+<p>Kundes email: ${order.email}</p>
+</div>
+`;
+    //Insætter elementet...
+    orderView.insertAdjacentHTML("beforeend", orderHTML);
+  }
+}
 function setDOM() {
   let htmlDOM;
   document.querySelector("#forms-div").innerHTML = "";
@@ -149,28 +209,4 @@ function showOrders() {
     console.log(order);
     showOrder(order);
   }
-}
-
-function showOrder(order) {
-  console.log("showOrder");
-  //Const med lokationen for orders-overview
-  const orderView = document.querySelector("#orders-overview");
-
-  //Giver HTML-tags til hvert orderElement.
-  const orderHTML =
-    /*html*/
-    `
-<div class="oder-item">
-<p>Den valgte frisør: ${order.frisør}</p>
-<p>Den valgte behandling: ${order.behandling}</p>
-<p>Dato: ${order.dato} Kl: ${order.tid}</p>
-<p>Navnet på kunden: ${order.navn}</p>
-<p>Kundes nummer: ${order.telefonNummer}</p>
-<p>Kundes email: ${order.email}</p>
-</div>
-`;
-
-  console.log(orderHTML);
-  //Insætter elementet...
-  orderView.insertAdjacentHTML("beforeend", orderHTML);
 }
