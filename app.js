@@ -49,13 +49,11 @@ function setDOM() {
   let htmlDOM;
   document.querySelector("#forms-div").innerHTML = "";
   if (hairdresserSelector == 1) {
-    htmlDOM = (
-      <select id="hairdresser1">
-        <option>Dreadlocks</option>
-        <option>Cornrows</option>
-        <option>Hippie hår</option>
-      </select>
-    );
+    htmlDOM = `<select id="hairdresser1">
+     <option>Dreadlocks</option>
+     <option>Cornrows</option>
+     <option>Hippie hår</option>
+     </select>`;
   } else if (hairdresserSelector == 2) {
     htmlDOM = `<select id="hairdresser2">
      <option>Page hår</option>
@@ -78,8 +76,8 @@ function setDOM() {
 
   const formHTML =
     /*html*/
-    `<article>
-   <div>${htmlDom}</div>
+    `<article class="order-form">
+   <div>${htmlDOM}</div>
    <lable for="full-name">Navn</lable>
    <input type="text" id="full-name" name="full-name">
    <lable for="user-phone">Tlf. Nummer</lable>
